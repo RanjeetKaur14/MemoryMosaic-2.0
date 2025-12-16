@@ -23,8 +23,9 @@ window.uploadMemory = async function () {
 
     const isVideo = file.type.startsWith("video");
     const cloudinaryUrl = isVideo
-        ? "https://api.cloudinary.com/v1_1/dv9vum0vn/video/upload"
-        : "https://api.cloudinary.com/v1_1/dv9vum0vn/image/upload";
+  ? "https://api.cloudinary.com/v1_1/duidmroqa/video/upload"
+  : "https://api.cloudinary.com/v1_1/duidmroqa/image/upload";
+
 
     const formData = new FormData();
     formData.append("file", file);
@@ -66,3 +67,4 @@ window.uploadMemory = async function () {
         alert("Upload failed. Please try again.");
     }
 };
+
