@@ -29,7 +29,8 @@ window.uploadMemory = async function () {
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "ml_default");
+    formData.append("upload_preset", "memory_mosaic_unsigned");
+
 
     try {
         console.log("UPLOADING TO CLOUDINARY");
@@ -67,4 +68,5 @@ window.uploadMemory = async function () {
         alert("Upload failed. Please try again.");
     }
 };
+
 
