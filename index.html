@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ARloid - Leave a Memory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Rouge+Script&family=Tinos:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ephesis&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/logo.jpg">
+    <style>
+        body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Tinos', serif;
+        }
+
+        .hero {
+        height: 100vh;
+        background: url('assets/background.png') center/cover no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        background-color: #00000066;
+        position: relative;
+        }
+
+        .overlay {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+        }
+
+        .hero-content {
+        z-index: 2;
+        }
+
+        h1 {
+        font-size: 5rem;
+        font-family: "Ephesis", cursive;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        font-weight: 300;
+        }
+
+        h3 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        }
+
+        .hero-buttons button {
+        font-size: 1.2rem;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: #c39883;
+        color: white;
+        font-weight: bold;
+        transition: 0.3s;
+        }
+
+        .hero-buttons button:hover {
+        background-color: #e99582;
+        transform: scale(1.05);
+        }
+
+        .typewriter {
+        
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 2px solid #FFE8D1;
+        width: 0;
+        animation: typing 2.8s steps(25) 1s forwards, blink 0.7s step-end infinite;
+        color: #FFE8D1;
+        }
+
+        @keyframes typing {
+        from { width: 0 }
+        to { width: 35ch } 
+        }
+
+        .shimmer-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        background: linear-gradient(120deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.05) 75%);
+        background-size: 200% 200%;
+        animation: shimmer 5s linear infinite;
+        z-index: 0;
+        mix-blend-mode: screen;
+        opacity: 0.2;
+        }
+
+        @keyframes shimmer {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+        }
+
+        .hero {
+        position: relative;
+        z-index: 1;
+        }
+        .hero-content {
+        z-index: 2;
+        position: relative;
+        }
+        .overlay {
+        z-index: 1;
+        }
+        .footer{
+        margin-top: 5rem;
+        position: absolute;
+        bottom: 0rem;
+        background-color: rgba(255, 241, 241, 0.13);
+        width: 100%;
+        text-align: center;
+        z-index: 2;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="shimmer-overlay"></div>
+
+    <div class="hero">
+        <div class="overlay"></div>
+            <div class="hero-content">
+            <h1>ARloid</h1>
+            <h3 class="typewriter">Capture a Moment, Leave a Memory...</h3>
+            <div class="hero-buttons" id="auth-buttons">
+    <!-- Buttons will be injected here by JS -->
+</div>
+
+        </div>
+        <div class="footer">
+        <p>Made with 💖 by Team Coffee_Overflow</p>
+        </div>
+    </div>
+    
+<script type="module">
+  import { auth } from './firebase.js';
+  import {
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const authButtons = document.getElementById("auth-buttons");
+  const provider = new GoogleAuthProvider();
+
+  onAuthStateChanged(auth, (user) => {
+    authButtons.innerHTML = "";
+
+    if (user) {
+      authButtons.innerHTML = `
+        <button onclick="location.href='upload.html'">Upload Memory</button>
+        <button onclick="location.href='viewgallery.html'">View Memories</button>
+        <button id="logoutBtn">Logout</button>
+      `;
+
+      document.getElementById("logoutBtn").onclick = () => signOut(auth);
+    } else {
+      const loginBtn = document.createElement("button");
+      loginBtn.innerText = "Login with Google";
+      loginBtn.onclick = () => signInWithPopup(auth, provider);
+      authButtons.appendChild(loginBtn);
+    }
+  });
+</script>
+
+</body>
+</html>

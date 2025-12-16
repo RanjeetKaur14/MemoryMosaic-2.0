@@ -1,0 +1,140 @@
+/* styleview.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Tinos', serif;
+  background-color: #fdf6f0;
+  color: #4c3b2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: url('../assets/viewgallerybackground.png') center center/cover no-repeat fixed;
+}
+
+.gallery-heading {
+  
+  font-family: 'Sacramento', cursive;
+  font-size: 3rem;
+  margin: 2rem;
+  color: #35353e;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(
+  to bottom,rgba(127, 227, 194, 0.85),rgba(200, 255, 235, 0.393));
+
+  height: 10rem;
+  line-height: 10rem;
+  position: fixed;
+  z-index: 10;
+  font-family: "Imperial Script", cursive;
+  /* text-shadow: 0.5rem 0.5rem 1rem rgba(248, 247, 245, 0.8); */
+  box-shadow: 0 0 2rem #fdf6f0;
+
+}
+
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  padding-top: 12rem;
+  width: 90%;
+  max-width: 1200px;
+  justify-items: center;
+  
+}
+
+.polaroid {
+  background: #e3d5ca;
+  border: 1px solid #ddd;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+  height: auto;
+  /* transform: rotate(-2deg); */
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.polaroid img {
+  max-width: 100%;
+  height: auto;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #d8c3a5;
+  margin-bottom: 0.5rem;
+}
+
+.caption {
+  font-size: 1rem;
+  font-style: italic;
+  color: #5e4630;
+  font-family: 'Tinos', serif;
+}
+#lightbox {
+  display: none;
+}
+
+#lightbox.active {
+  display: flex;
+}
+
+.back-button {
+  font-family: 'Tinos', serif;
+  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  background-color: #e5c8a8;
+  color: #4c3b2a;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  margin: 0 2rem;
+  align-self: flex-end;
+  position: fixed;
+  bottom: 2rem;
+  transition: background 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #d4b08a;
+}
+.album-time {
+  font-size: 0.85rem;
+  color: #7a6c59;
+  font-style: italic;
+  text-align: center;
+}
+
+body::-webkit-scrollbar{
+    width: 1rem;
+}
+
+body::-webkit-scrollbar-track {
+  background:transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #0df7ff8a;
+  border-radius: 2rem;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: #85c1b9;
+}  
+.logo {
+    position: fixed;
+    width: 8rem;
+    height: 8rem;
+    bottom: 1rem;
+    left: 1rem;
+    /* box-shadow:  0 0 2rem rgba(217, 220, 59, 0.419); */
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}   
+
+.logo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 25px rgba(255, 255, 200, 0.6);
+  filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 160, 0.8));
+}

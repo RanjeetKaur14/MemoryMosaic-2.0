@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <title>View Memory – ARloid</title>
+  <link rel="stylesheet" href="styleview.css" />
+</head>
+<body>
+  <div class="heading">
+    <h1 class="cursive" style="display: inline-block; font-family: 'Ballet', cursive; font-weight: 400; font-size: 3.5rem;" > Y </h1>
+    <h1 class="normal" style="display: inline-block; font-family: 'Unna', serif; font-weight: 400; font-size: 3.5rem;">our &nbsp; </h1>
+    <h1 class="cursive" style="display: inline-block; font-family: 'Ballet', cursive; font-weight: 400; font-size: 3.5rem;" > P</h1>
+    <h1 class="normal" style="display: inline-block; font-family: 'Unna', serif; font-weight: 400; font-size: 3.5rem;">olaroid &nbsp;  </h1>
+    <h1 class="cursive" style="display: inline-block; font-family: 'Ballet', cursive; font-weight: 400; font-size: 3.5rem;" > M</h1>
+    <h1 class="normal" style="display: inline-block; font-family: 'Unna', serif; font-weight: 400; font-size: 3.5rem;">emory </h1>
+  </div>
+
+  <div class="memory-container">
+    <div class="polaroid" id="memoryCard">
+      <img src="" id="memoryImg" alt="Uploaded Memory" />
+    </div>
+  </div>
+  <div class="outercontent">
+    <div class="content">
+      <p class="caption" id="memoryCaption"></p>
+      <button class="back-btn" onclick="goBack()">⬅ Back to Upload</button>
+    </div>
+  </div>
+  
+  <div class="logo">
+        <a href="index.html" ><img  src="assets/logo.jpg" alt="logo" class="logo"></a>
+  </div>
+
+  <script type="module">
+    import { db } from './firebase.js';
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // Extract document ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    async function loadMemory() {
+      if (!id) {
+        alert("No memory ID found in the URL.");
+        return;
+      }
+
+      const docRef = doc(db, "memories", id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        document.getElementById("memoryImg").src = data.url;
+        document.getElementById("memoryCaption").innerText = data.caption;
+      } else {
+        alert("Memory not found.");
+      }
+    }
+    loadMemory();
+
+    window.goBack= function() {
+      window.location.href = "./upload.html";
+    }
+  </script>
+</body>
+</html>
