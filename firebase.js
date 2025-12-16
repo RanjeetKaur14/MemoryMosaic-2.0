@@ -1,18 +1,20 @@
 
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBgbizuirtNwZvOuflvLd66tw-lzLZ1Hmo",
-  authDomain: "polaroid-ar-memory.firebaseapp.com",
-  projectId: "polaroid-ar-memory",
-  storageBucket: "polaroid-ar-memory.appspot.com", 
-  messagingSenderId: "285625088296",
-  appId: "1:285625088296:web:0fc4f69380879df2c2b81d",
-  measurementId: "G-5STLG9BYYJ"
+  apiKey: "AIzaSyD7A_GEEy51qmy3NMWmNHpM_AEPAqXMeq8",
+  authDomain: "arloid-164ff.firebaseapp.com",
+  projectId: "arloid-164ff",
+  storageBucket: "arloid-164ff.appspot.com",
+  messagingSenderId: "839613067262",
+  appId: "1:839613067262:web:83574cc7f446c45ede9aaf"
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+
