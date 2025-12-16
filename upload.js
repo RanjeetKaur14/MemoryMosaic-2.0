@@ -1,22 +1,25 @@
-// upload.js
 import { db, auth } from './firebase.js';
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const tagsInput = document.getElementById("tags");
-
 window.uploadMemory = async function () {
+    console.log("UPLOAD STARTED");
+
     const file = document.getElementById("fileInput").files[0];
     const caption = document.getElementById("caption").value;
+    const tagsInput = document.getElementById("tags");
 
     if (!file || !caption) {
         alert("Please upload a file and write a caption.");
         return;
     }
 
+    // ✅ TAGS ARE READ HERE
     const tags = tagsInput.value
         .split(",")
         .map(tag => tag.trim().toLowerCase())
         .filter(tag => tag !== "");
+
+    console.log("TAGS:", tags);
 
     const isVideo = file.type.startsWith("video");
     const cloudinaryUrl = isVideo
@@ -28,6 +31,8 @@ window.uploadMemory = async function () {
     formData.append("upload_preset", "ml_default");
 
     try {
+        console.log("UPLOADING TO CLOUDINARY");
+
         const res = await fetch(cloudinaryUrl, {
             method: "POST",
             body: formData
@@ -42,15 +47,17 @@ window.uploadMemory = async function () {
             return;
         }
 
+        // ✅ IMAGE + TAGS STORED TOGETHER IN FIRESTORE
         await addDoc(collection(db, "memories"), {
             userId: user.uid,
             url: mediaURL,
             caption: caption,
-            type: isVideo ? "video" : "image",
             tags: tags,
+            type: isVideo ? "video" : "image",
             createdAt: new Date()
         });
 
+        console.log("REDIRECTING");
         alert("Upload successful!");
         window.location.href = "viewgallery.html";
 
