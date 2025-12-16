@@ -1,7 +1,8 @@
 // upload.js
 import { db, auth } from './firebase.js';
-
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const tagsInput = document.getElementById("tags");
 
 window.uploadMemory = async function () {
     const file = document.getElementById("fileInput").files[0];
@@ -12,6 +13,11 @@ window.uploadMemory = async function () {
         return;
     }
 
+    const tags = tagsInput.value
+        .split(",")
+        .map(tag => tag.trim().toLowerCase())
+        .filter(tag => tag !== "");
+
     const isVideo = file.type.startsWith("video");
     const cloudinaryUrl = isVideo
         ? "https://api.cloudinary.com/v1_1/dv9vum0vn/video/upload"
@@ -19,7 +25,7 @@ window.uploadMemory = async function () {
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "ml_default"); // Your unsigned preset
+    formData.append("upload_preset", "ml_default");
 
     try {
         const res = await fetch(cloudinaryUrl, {
@@ -31,7 +37,6 @@ window.uploadMemory = async function () {
         const mediaURL = data.secure_url;
 
         const user = auth.currentUser;
-
         if (!user) {
             alert("Please log in first.");
             return;
@@ -42,13 +47,13 @@ window.uploadMemory = async function () {
             url: mediaURL,
             caption: caption,
             type: isVideo ? "video" : "image",
-            createdAt: new Date(),
-            tags: []
+            tags: tags,
+            createdAt: new Date()
         });
 
-
         alert("Upload successful!");
-        window.location.href = "viewgallery.html"; // or whatever your gallery file is
+        window.location.href = "viewgallery.html";
+
     } catch (err) {
         console.error("Upload failed:", err);
         alert("Upload failed. Please try again.");
