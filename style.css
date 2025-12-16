@@ -22,7 +22,7 @@ body{
 .maincontent{
   width: 45%;
   /* top: -5rem; */
-  height: 20rem;
+  height: 30rem;
   background-color: #ec8a8dc1;
   position: relative;
   bottom: 4rem;
@@ -125,3 +125,4 @@ textarea {
   box-shadow: 0 12px 25px rgba(255, 255, 200, 0.6);
   filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 160, 0.8));
 }
+
