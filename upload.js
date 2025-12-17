@@ -2,6 +2,14 @@ import { db, auth } from './firebase.js';
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 console.log("UPLOAD.JS LOADED");
+let currentUser = null;
+
+import { onAuthStateChanged } from 
+  "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+});
 
 async function uploadMemory() {
     const btn = document.getElementById("uploadBtn");
@@ -61,14 +69,17 @@ if (!mediaURL) {
 }
 
 
-        const user = auth.currentUser;
-        if (!user) {
-            alert("Please log in first.");
-            return;
-        }
+if (!currentUser) {
+  alert("Auth not ready. Wait 1 second and try again.");
+  btn.disabled = false;
+  btn.innerText = "Upload Memory";
+  return;
+}
+
 
         const docRef = await addDoc(collection(db, "memories"), {
-  userId: user.uid,
+  userId: currentUser.uid,
+
   url: mediaURL,
   caption: caption,
   tags: tags,
@@ -97,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     btn.addEventListener("click", uploadMemory);
 });
+
 
 
 
