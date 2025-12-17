@@ -35,7 +35,7 @@
         <a href="index.html" ><img  src="assets/logo.jpg" alt="logo" class="logo"></a>
   </div>
 
-  <script type="module">
+<script type="module">
     import { db } from './firebase.js';
     import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -43,28 +43,56 @@
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
+    console.log("View page loaded, ID from URL:", id);
+
     async function loadMemory() {
       if (!id) {
-        alert("No memory ID found in the URL.");
+        console.error("No memory ID in URL");
+        alert("No memory ID found. Please upload again.");
+        window.location.href = "upload.html";
         return;
       }
 
-      const docRef = doc(db, "memories", id);
-      const docSnap = await getDoc(docRef);
+      try {
+        console.log("Loading memory with ID:", id);
+        const docRef = doc(db, "memories", id);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        document.getElementById("memoryImg").src = data.url;
-        document.getElementById("memoryCaption").innerText = data.caption;
-      } else {
-        alert("Memory not found.");
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          console.log("Memory data loaded:", data);
+          
+          document.getElementById("memoryImg").src = data.url;
+          document.getElementById("memoryCaption").innerText = data.caption;
+          
+          // If video, create video element
+          if (data.type === "video") {
+            const imgElement = document.getElementById("memoryImg");
+            const videoElement = document.createElement("video");
+            videoElement.src = data.url;
+            videoElement.controls = true;
+            videoElement.style.width = "100%";
+            videoElement.style.height = "100%";
+            imgElement.replaceWith(videoElement);
+          }
+        } else {
+          console.error("Memory not found in Firestore");
+          alert("Memory not found. It may have been deleted.");
+          window.location.href = "upload.html";
+        }
+      } catch (error) {
+        console.error("Error loading memory:", error);
+        alert("Error loading memory: " + error.message);
       }
     }
+    
+    // Call on load
     loadMemory();
 
-    window.goBack= function() {
+    window.goBack = function() {
       window.location.href = "./upload.html";
     }
-  </script>
+</script>
 </body>
+
 </html>
