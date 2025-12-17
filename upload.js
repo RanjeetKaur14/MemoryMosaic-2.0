@@ -74,8 +74,13 @@ async function uploadMemory() {
     }
 }
 
-/* 🔥 THIS IS THE FIX 🔥 */
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("uploadBtn");
+    if (!btn) {
+        console.error("Upload button not found");
+        return;
+    }
     btn.addEventListener("click", uploadMemory);
 });
+
+
