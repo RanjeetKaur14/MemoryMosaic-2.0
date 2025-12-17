@@ -694,3 +694,85 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
+/* ===== POLAROID WITH ORIGINAL ASPECT RATIO ===== */
+.polaroid {
+  background: #fff;
+  border: 12px solid #f5f0e6;
+  border-bottom: 45px solid #f5f0e6;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.15),
+    0 8px 25px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  max-width: 320px; /* Maximum width, but height will adjust */
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 2px;
+  transform: rotate(var(--rotation, 0deg));
+}
+
+/* Remove fixed height from media container */
+.polaroid-media-container {
+  width: 100%;
+  /* Remove fixed height - let it be natural */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f5eb;
+  border-bottom: 1px solid #e8dfd0;
+  /* Add minimum height */
+  min-height: 250px;
+}
+
+/* This is the key change - maintain aspect ratio */
+.polaroid img {
+  width: 100%; /* Full width of container */
+  height: auto; /* Height adjusts automatically */
+  max-height: 400px; /* Maximum height limit */
+  object-fit: contain; /* This preserves aspect ratio without cropping */
+  transition: transform 0.5s ease;
+}
+
+/* For videos */
+.polaroid video {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+/* Adjust polaroid content to be flexible */
+.polaroid-content {
+  padding: 1.2rem 1rem 0.8rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  /* Add minimum height for content area */
+  min-height: 130px;
+}
+
+/* Make caption area flexible */
+.caption {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #5e4630;
+  margin: 0;
+  flex: 1;
+  text-align: left;
+  line-height: 1.4;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Allow text to grow */
+  min-height: 40px;
+}
