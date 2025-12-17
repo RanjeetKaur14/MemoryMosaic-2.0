@@ -1,49 +1,80 @@
-/* styleview.css */
+/* ===== RESET & BASE STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Tinos', serif;
-  background-color: #fdf6f0;
   color: #4c3b2a;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  
+  /* Background */
   background: url('../assets/viewgallerybackground.png') center center/cover no-repeat fixed;
+  background-color: #fdf6f0; /* Fallback */
 }
 
-.gallery-heading {
-  
-  font-family: 'Sacramento', cursive;
-  font-size: 3rem;
-  margin: 2rem;
-  color: #35353e;
-  width: 100%;
-  text-align: center;
-  background: linear-gradient(
-  to bottom,rgba(127, 227, 194, 0.85),rgba(200, 255, 235, 0.393));
+/* ===== SCROLLBAR ===== */
+body::-webkit-scrollbar {
+  width: 1rem;
+}
 
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #0df7ff8a;
+  border-radius: 2rem;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #85c1b9;
+}
+
+/* ===== HEADER ===== */
+.gallery-heading {
+  width: 100%;
   height: 10rem;
   line-height: 10rem;
-  position: fixed;
-  z-index: 10;
+  text-align: center;
   font-family: "Imperial Script", cursive;
-  /* text-shadow: 0.5rem 0.5rem 1rem rgba(248, 247, 245, 0.8); */
+  font-size: 3rem;
+  color: #35353e;
+  
+  /* Fixed positioning */
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  
+  /* Background & Shadow */
+  background: linear-gradient(
+    to bottom,
+    rgba(127, 227, 194, 0.85),
+    rgba(200, 255, 235, 0.393)
+  );
   box-shadow: 0 0 2rem #fdf6f0;
-
 }
 
+/* ===== GALLERY LAYOUT ===== */
 .gallery-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
   padding: 2rem;
-  padding-top: 12rem;
+  padding-top: 12rem; /* Space for fixed header */
   width: 90%;
   max-width: 1200px;
   justify-items: center;
-  
 }
 
+/* ===== POLAROID CARD ===== */
 .polaroid {
   background: #e3d5ca;
   border: 1px solid #ddd;
@@ -52,11 +83,12 @@ body {
   text-align: center;
   transition: transform 0.3s ease;
   height: auto;
-  /* transform: rotate(-2deg); */
+  position: relative;
+  cursor: pointer;
 }
 
 .polaroid:hover {
-  transform: rotate(0deg) scale(1.03);
+  transform: scale(1.03);
 }
 
 .polaroid img {
@@ -67,79 +99,74 @@ body {
   margin-bottom: 0.5rem;
 }
 
+/* Video thumbnail */
+.video-thumbnail {
+  position: relative;
+}
+
+.video-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== POLAROID CONTENT ===== */
+.polaroid-content {
+  padding: 1rem 0.5rem;
+}
+
+.memory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
 .caption {
   font-size: 1rem;
   font-style: italic;
   color: #5e4630;
-  font-family: 'Tinos', serif;
-}
-#lightbox {
-  display: none;
-}
-
-#lightbox.active {
-  display: flex;
+  margin: 0;
+  flex: 1;
+  text-align: left;
 }
 
-.back-button {
-  font-family: 'Tinos', serif;
-  font-size: 1rem;
-  padding: 0.5rem 1.2rem;
-  background-color: #e5c8a8;
-  color: #4c3b2a;
-  text-decoration: none;
-  border-radius: 8px;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-  margin: 0 2rem;
-  align-self: flex-end;
-  position: fixed;
-  bottom: 2rem;
-  transition: background 0.3s ease;
-}
-
-.back-button:hover {
-  background-color: #d4b08a;
-}
 .album-time {
   font-size: 0.85rem;
   color: #7a6c59;
   font-style: italic;
   text-align: center;
+  margin-top: 0.5rem;
 }
 
-body::-webkit-scrollbar{
-    width: 1rem;
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0.5rem 0;
+  justify-content: center;
 }
 
-body::-webkit-scrollbar-track {
-  background:transparent;
+.tag {
+  background: #f1f1f1;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  color: #666;
 }
 
-body::-webkit-scrollbar-thumb {
-  background: #0df7ff8a;
-  border-radius: 2rem;
-}
-body::-webkit-scrollbar-thumb:hover {
-  background: #85c1b9;
-}  
-.logo {
-    position: fixed;
-    width: 8rem;
-    height: 8rem;
-    bottom: 1rem;
-    left: 1rem;
-    /* box-shadow:  0 0 2rem rgba(217, 220, 59, 0.419); */
-    border-radius: 50%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
-}   
-
-.logo:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 25px rgba(255, 255, 200, 0.6);
-  filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 160, 0.8));
-
-}
-/* Delete Button on Memory Card */
+/* ===== DELETE BUTTON ===== */
 .delete-memory-btn {
   position: absolute;
   top: 10px;
@@ -147,83 +174,157 @@ body::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.9);
   border: none;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   opacity: 0;
-  transition: opacity 0.3s, background 0.3s;
+  transition: all 0.3s ease;
   z-index: 10;
+  color: #333;
+}
+
+.delete-memory-btn:hover {
+  background: #ff4444;
+  color: white;
+  transform: scale(1.1);
 }
 
 .polaroid:hover .delete-memory-btn {
   opacity: 1;
 }
 
-.delete-memory-btn:hover {
-  background: #ff4444;
-  color: white;
-}
-
-/* Memory Header */
-.memory-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
-}
-
-.memory-header .caption {
-  margin: 0;
-  flex: 1;
-  padding-right: 10px;
-}
-
-/* Lightbox Delete Button */
-.lightbox-header {
-  position: absolute;
+/* ===== LIGHTBOX ===== */
+#lightbox {
+  display: none;
+  position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+#lightbox.active {
+  display: flex;
+}
+
+#lightbox-content {
+  position: relative;
+  width: 90%;
+  max-width: 900px;
+  background: rgba(30, 30, 30, 0.9);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Lightbox Header */
+.lightbox-header {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  z-index: 1001;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.close-lightbox {
+  color: white;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.close-lightbox:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .lightbox-delete-btn {
   background: rgba(255, 68, 68, 0.9);
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s;
 }
 
 .lightbox-delete-btn:hover {
   background: #ff2222;
+  transform: translateY(-1px);
 }
 
 .lightbox-delete-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
-/* Toast Notifications */
+/* Lightbox Media */
+.lightbox-media {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 60vh;
+}
+
+.lightbox-media img,
+.lightbox-media video {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Lightbox Info */
+.lightbox-info {
+  padding: 1.5rem;
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lightbox-caption {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  font-style: italic;
+}
+
+.lightbox-date {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* ===== TOAST NOTIFICATIONS ===== */
 .toast {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 25px;
+  right: 25px;
   background: #333;
   color: white;
   padding: 1rem 1.5rem;
-  border-radius: 4px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -232,7 +333,8 @@ body::-webkit-scrollbar-thumb:hover {
   z-index: 10000;
   transform: translateY(100px);
   opacity: 0;
-  transition: transform 0.3s, opacity 0.3s;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .toast.show {
@@ -256,32 +358,157 @@ body::-webkit-scrollbar-thumb:hover {
   background: none;
   border: none;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   cursor: pointer;
   margin-left: 1rem;
+  padding: 0 0.3rem;
+  border-radius: 50%;
+  transition: background 0.3s;
 }
 
-/* Lightbox improvements */
-.lightbox-media {
-  max-width: 90vw;
-  max-height: 70vh;
+.toast-close:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.lightbox-media img,
-.lightbox-media video {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 4px;
+/* ===== LOGO ===== */
+.logo {
+  position: fixed;
+  width: 8rem;
+  height: 8rem;
+  bottom: 1rem;
+  left: 1rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 5;
 }
 
-.lightbox-info {
-  padding: 1rem;
-  color: white;
+.logo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 25px rgba(255, 255, 200, 0.6);
+  filter: brightness(1.1) drop-shadow(0 0 10px rgba(255, 255, 160, 0.8));
+}
+
+/* ===== LOADING & EMPTY STATES ===== */
+.loading {
   text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+  grid-column: 1 / -1;
 }
 
-.lightbox-date {
-  color: #aaa;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+  grid-column: 1 / -1;
+}
+
+.empty-state i {
+  font-size: 4rem;
+  color: #ddd;
+  margin-bottom: 1.5rem;
+}
+
+.error-state,
+.auth-required {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+  grid-column: 1 / -1;
+}
+
+.btn-upload,
+.btn-login {
+  display: inline-block;
+  background: #3498db;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-top: 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-upload:hover,
+.btn-login:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .gallery-heading {
+    font-size: 2.2rem;
+    height: 8rem;
+    line-height: 8rem;
+  }
+  
+  .gallery-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    padding-top: 10rem;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .polaroid {
+    padding: 0.8rem;
+  }
+  
+  .caption {
+    font-size: 0.9rem;
+  }
+  
+  .logo {
+    width: 6rem;
+    height: 6rem;
+  }
+  
+  .toast {
+    min-width: 250px;
+    max-width: 300px;
+    bottom: 20px;
+    right: 20px;
+    padding: 0.8rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-heading {
+    font-size: 1.8rem;
+    height: 6rem;
+    line-height: 6rem;
+  }
+  
+  .gallery-container {
+    grid-template-columns: 1fr;
+    padding-top: 8rem;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .lightbox-header {
+    padding: 0.8rem 1rem;
+  }
+  
+  .lightbox-delete-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
 }
