@@ -56,17 +56,17 @@ async function uploadMemory() {
             return;
         }
 
-        await addDoc(collection(db, "memories"), {
-            userId: user.uid,
-            url: data.secure_url,
-            caption,
-            tags,
-            type: isVideo ? "video" : "image",
-            createdAt: new Date()
-        });
+        const docRef = await addDoc(collection(db, "memories"), {
+  userId: user.uid,
+  url: mediaURL,
+  caption: caption,
+  tags: tags,
+  type: isVideo ? "video" : "image",
+  createdAt: new Date()
+});
 
-        alert("Upload successful!");
-        window.location.href = "viewgallery.html";
+window.location.href = `view.html?id=${docRef.id}`;
+
 
     } catch (err) {
         console.error("UPLOAD FAILED:", err);
@@ -82,5 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     btn.addEventListener("click", uploadMemory);
 });
+
 
 
