@@ -4,6 +4,10 @@ import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/f
 console.log("UPLOAD.JS LOADED");
 
 async function uploadMemory() {
+    const btn = document.getElementById("uploadBtn");
+btn.disabled = true;
+btn.innerText = "Uploading...";
+
     console.log("UPLOAD STARTED");
 
     const fileInput = document.getElementById("fileInput");
@@ -71,6 +75,7 @@ if (!mediaURL) {
   type: isVideo ? "video" : "image",
   createdAt: new Date()
 });
+console.log("REDIRECTING TO VIEW PAGE:", docRef.id);
 
 window.location.href = `view.html?id=${docRef.id}`;
 
@@ -78,6 +83,9 @@ window.location.href = `view.html?id=${docRef.id}`;
     } catch (err) {
         console.error("UPLOAD FAILED:", err);
         alert("Upload failed. Check console.");
+        btn.disabled = false;
+btn.innerText = "Upload Memory";
+
     }
 }
 
@@ -89,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     btn.addEventListener("click", uploadMemory);
 });
+
 
 
 
