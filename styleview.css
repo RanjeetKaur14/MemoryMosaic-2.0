@@ -16,7 +16,7 @@ body {
   min-height: 100vh;
   
   /* Background */
-  background: url('../assets/viewgallerybackground.png') center center/cover no-repeat fixed;
+  background: url('assets/viewgallerybackground.png') center center/cover no-repeat fixed;
   background-color: #fdf6f0; /* Fallback */
 }
 
@@ -693,3 +693,4 @@ body::-webkit-scrollbar-thumb:hover {
     font-size: 1.5rem;
   }
 }
+
