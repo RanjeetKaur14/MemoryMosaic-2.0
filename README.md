@@ -34,10 +34,11 @@ https://ranjeetkaur14.github.io/MemoryMosaic-2.0/
 - Deployed a production-ready static web application
 
 ## Future Improvements
-- Memory tagging and filtering
-- Edit and delete functionality
-- Public/private memory visibility controls
-- UI and accessibility enhancements
+- Tag-based filtering and search in the gallery view
+- Timeline-based sorting (most recent / oldest memories)
+- Calendar-style or chronological memory view
+- Performance and UI optimizations for large memory collections
+
 
 ## Author
 Ranjeet Kaur
