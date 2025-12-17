@@ -48,7 +48,14 @@ async function uploadMemory() {
         }
 
         const data = await res.json();
-        console.log("CLOUDINARY RESPONSE:", data);
+console.log("CLOUDINARY RESPONSE:", data);
+
+const mediaURL = data.secure_url; 
+
+if (!mediaURL) {
+  throw new Error("Cloudinary did not return a URL");
+}
+
 
         const user = auth.currentUser;
         if (!user) {
@@ -82,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     btn.addEventListener("click", uploadMemory);
 });
+
 
 
 
