@@ -776,3 +776,183 @@ body::-webkit-scrollbar-thumb:hover {
   /* Allow text to grow */
   min-height: 40px;
 }
+
+/* ===== POLAROID CARD (PINTEREST-STYLE VARIED HEIGHTS) ===== */
+.polaroid {
+  background: #fff;
+  border: 12px solid #f5f0e6;
+  border-bottom: 45px solid #f5f0e6;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.15),
+    0 8px 25px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 2px;
+  transform: rotate(var(--rotation, 0deg));
+  /* Let height be determined by content */
+  height: auto;
+  min-height: 350px; /* Minimum height */
+  break-inside: avoid; /* Prevent breaking across columns */
+}
+
+/* Random slight rotation for polaroid effect */
+.polaroid:nth-child(3n) {
+  --rotation: -1deg;
+}
+.polaroid:nth-child(3n+1) {
+  --rotation: 0.5deg;
+}
+.polaroid:nth-child(3n+2) {
+  --rotation: 1.5deg;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 15px 40px rgba(0, 0, 0, 0.15);
+  z-index: 5;
+}
+
+/* Polaroid media container with flexible height */
+.polaroid-media-container {
+  width: 100%;
+  /* Flexible height - will adapt to image aspect ratio */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f5eb;
+  border-bottom: 1px solid #e8dfd0;
+  /* Minimum height for visual consistency */
+  min-height: 250px;
+  max-height: 500px; /* Maximum height limit */
+}
+
+/* Images maintain aspect ratio */
+.polaroid img {
+  width: 100%;
+  height: auto; /* Let height adjust naturally */
+  max-height: 500px; /* Maximum height limit */
+  object-fit: cover; /* Crop if needed for consistency */
+  transition: transform 0.5s ease;
+}
+
+/* Videos maintain aspect ratio */
+.polaroid video {
+  width: 100%;
+  height: auto; /* Let height adjust naturally */
+  max-height: 500px; /* Maximum height limit */
+  object-fit: cover; /* Crop if needed for consistency */
+}
+
+.polaroid:hover img,
+.polaroid:hover video {
+  transform: scale(1.05);
+}
+
+/* ===== POLAROID CONTENT (FLEXIBLE) ===== */
+.polaroid-content {
+  padding: 1.2rem 1rem 0.8rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  /* Allow content area to grow/shrink */
+  min-height: 120px;
+}
+
+.memory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+  gap: 0.8rem;
+  min-height: 40px;
+}
+
+.caption {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #5e4630;
+  margin: 0;
+  flex: 1;
+  text-align: left;
+  line-height: 1.4;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Allow up to 3 lines for longer captions */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Flexible height for caption */
+  min-height: 1.4em;
+}
+
+.album-time {
+  font-size: 0.8rem;
+  color: #8a7a65;
+  font-style: italic;
+  text-align: center;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px dashed #e8dfd0;
+  /* Keep at bottom */
+  flex-shrink: 0;
+}
+
+/* Tags - can wrap to multiple lines */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.8rem 0;
+  justify-content: center;
+  /* Allow tags to take variable vertical space */
+  min-height: 24px;
+}
+
+.tag {
+  background: #f1ede5;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: #7a6c59;
+  border: 1px solid #e8dfd0;
+  /* Allow tags to wrap */
+  white-space: nowrap;
+}
+
+/* ===== GALLERY LAYOUT (MASONRY-STYLE) ===== */
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 10px; /* Controls row height granularity */
+  gap: 2.5rem;
+  padding: 2rem;
+  padding-top: 12rem;
+  width: 95%;
+  max-width: 1400px;
+  justify-items: center;
+  /* Masonry-like behavior */
+  grid-auto-flow: dense;
+}
+
+/* For better masonry effect on larger screens */
+@media (min-width: 1024px) {
+  .gallery-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1400px) {
+  .gallery-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
