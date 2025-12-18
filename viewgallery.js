@@ -13,30 +13,46 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/f
 
 const gallery = document.getElementById("gallery");
 
-// Create tag filter container
+// Create tags toggle button (simple button, not full container)
+const tagsToggleBtn = document.createElement("button");
+tagsToggleBtn.className = "tags-toggle-btn";
+tagsToggleBtn.innerHTML = `
+  <i class="fas fa-tags"></i>
+  <span>Tags</span>
+`;
+
+// Create tag filter container (hidden by default)
 const tagFilterContainer = document.createElement("div");
 tagFilterContainer.className = "tag-filter-container";
+tagFilterContainer.style.display = "none"; // Hidden initially
 tagFilterContainer.innerHTML = `
   <div class="tag-filter-header">
     <h3>Filter by Tags</h3>
-    <button class="clear-filter-btn" style="display:none">
-      <i class="fas fa-times"></i> Clear Filter
-    </button>
+    <div class="tag-filter-controls">
+      <button class="clear-filter-btn" style="display:none">
+        <i class="fas fa-times"></i> Clear Filter
+      </button>
+      <button class="close-tags-btn">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
   </div>
   <div class="tag-filter-tags">
     <div class="loading-tags">Loading tags...</div>
   </div>
 `;
 
-// Insert tag filter after the header
+// Insert toggle button after header
 const header = document.querySelector('.gallery-heading');
 if (header) {
-  header.insertAdjacentElement('afterend', tagFilterContainer);
+  header.insertAdjacentElement('afterend', tagsToggleBtn);
+  tagsToggleBtn.insertAdjacentElement('afterend', tagFilterContainer);
 }
 
-// Get tag filter elements
+// Get elements
 const tagFilterTags = tagFilterContainer.querySelector('.tag-filter-tags');
 const clearFilterBtn = tagFilterContainer.querySelector('.clear-filter-btn');
+const closeTagsBtn = tagFilterContainer.querySelector('.close-tags-btn');
 
 // Create lightbox element
 const lightbox = document.createElement("div");
@@ -72,6 +88,33 @@ let currentMemoryData = null;
 let allMemories = [];
 let allTags = new Set();
 let currentFilterTag = null;
+let isTagsPanelOpen = false;
+
+// Toggle tags panel
+function toggleTagsPanel() {
+  isTagsPanelOpen = !isTagsPanelOpen;
+  
+  if (isTagsPanelOpen) {
+    tagFilterContainer.style.display = "block";
+    tagsToggleBtn.classList.add("active");
+    // Animate in
+    setTimeout(() => {
+      tagFilterContainer.style.opacity = "1";
+      tagFilterContainer.style.transform = "translateY(0)";
+    }, 10);
+  } else {
+    tagFilterContainer.style.opacity = "0";
+    tagFilterContainer.style.transform = "translateY(-10px)";
+    setTimeout(() => {
+      tagFilterContainer.style.display = "none";
+      tagsToggleBtn.classList.remove("active");
+    }, 300);
+  }
+}
+
+// Toggle button event
+tagsToggleBtn.addEventListener("click", toggleTagsPanel);
+closeTagsBtn.addEventListener("click", toggleTagsPanel);
 
 // Delete memory function
 async function deleteMemory(memoryId) {
@@ -327,6 +370,10 @@ function displayMemories(memories) {
             e.stopPropagation();
             lightbox.classList.remove("active");
             filterMemoriesByTag(tag);
+            // Auto-open tags panel when filtering from lightbox
+            if (!isTagsPanelOpen) {
+              toggleTagsPanel();
+            }
           });
           lightboxTags.appendChild(tagElement);
         });
@@ -345,6 +392,10 @@ function displayMemories(memories) {
       tagElement.addEventListener('click', (e) => {
         e.stopPropagation();
         filterMemoriesByTag(e.target.dataset.tag);
+        // Auto-open tags panel when filtering from card
+        if (!isTagsPanelOpen) {
+          toggleTagsPanel();
+        }
       });
     });
 
@@ -389,6 +440,10 @@ function updateTagFilterDisplay() {
     tagElement.addEventListener('click', () => {
       const tag = tagElement.dataset.tag;
       filterMemoriesByTag(tag);
+      // Keep tags panel open when filtering
+      if (!isTagsPanelOpen) {
+        toggleTagsPanel();
+      }
     });
   });
 }
