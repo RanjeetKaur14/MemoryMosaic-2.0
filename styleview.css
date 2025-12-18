@@ -777,3 +777,190 @@ body::-webkit-scrollbar-thumb:hover {
   min-height: 40px;
 }
 
+
+/* ===== TAG FILTER STYLES ===== */
+.tag-filter-container {
+  position: sticky;
+  top: 10rem;
+  z-index: 9;
+  background: linear-gradient(
+    to bottom,
+    rgba(200, 255, 235, 0.95),
+    rgba(255, 255, 255, 0.9)
+  );
+  padding: 1.2rem 2rem;
+  margin: 0 auto 2rem;
+  width: 95%;
+  max-width: 1400px;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.tag-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.tag-filter-header h3 {
+  font-family: 'Tinos', serif;
+  color: #4c3b2a;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.clear-filter-btn {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.clear-filter-btn:hover {
+  background: linear-gradient(135deg, #c82333, #b21f2d);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+}
+
+.tag-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  min-height: 40px;
+}
+
+.filter-tag {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  color: #7a6c59;
+  border: 2px solid #e8dfd0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.filter-tag:hover {
+  background: #f1ede5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-tag-active {
+  background: #8B4513;
+  color: white;
+  border-color: #8B4513;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+}
+
+.filter-tag-active:hover {
+  background: #A0522D;
+  border-color: #A0522D;
+}
+
+.loading-tags,
+.no-tags {
+  color: #8a7a65;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* Active tag in memory cards */
+.tag.tag-active {
+  background: #8B4513;
+  color: white;
+  border-color: #8B4513;
+}
+
+/* Lightbox tags */
+.lightbox-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.lightbox-tags .tag {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.lightbox-tags .tag:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tag-filter-container {
+    top: 8rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .tag-filter-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .clear-filter-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .filter-tag {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tag-filter-container {
+    top: 6rem;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .tag-filter-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  
+  .tag-filter-header h3 {
+    font-size: 1rem;
+  }
+  
+  .clear-filter-btn {
+    align-self: flex-end;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .tag-filter-tags {
+    gap: 0.4rem;
+  }
+  
+  .filter-tag {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+  }
+}
